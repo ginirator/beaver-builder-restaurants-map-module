@@ -25,12 +25,17 @@ class FLRestaurantsMapModule extends FLBuilderModule {
 
         // Register and enqueue the Frontend CSS File
         $this->add_css('frontend-style', $this->url . 'css/frontend.css');
-
-        // Register and enqueue the Frontend JS File
-        // $this->add_js('frontend-script', $this->url . 'js/frontend.js', array(), rand(10,1000), false);
     }
 
-    /**
+	/**
+	 * Function that enqueue's scripts
+	 */
+	public function enqueue_scripts() {
+		$this->add_js('frontend-script', $this->url . 'js/restaurants-map-lib.js', array(), rand(1,100000000), true);
+		wp_localize_script( 'frontend-script', 'localized_number_of_map_markers_field', $this->settings->number_of_map_markers_field );
+	}
+
+	/**
 	 * Ensure backwards compatibility with old settings.
 	 *
 	 * @since 2.2
@@ -133,26 +138,26 @@ class FLRestaurantsMapModule extends FLBuilderModule {
  * Register the module and its form settings.
  */
 FLBuilder::register_module('FLRestaurantsMapModule', array(
-    'general'       => array( // Tab
-        'title'         => __('General', 'fl-builder'), // Tab title
-        'sections'      => array( // Tab Sections
-            'general'       => array( // Section
-                'title'         => __('Section Title', 'fl-builder'), // Section Title
-                'fields'        => array( // Section Fields
-                    'heading'     => array(
-                        'type'          => 'text',
-                        'label'         => __('Heading Text', 'fl-builder'),
-                        'default'       => '',
-                        'class'         => 'my-css-class',
-                        'help'          => 'Enter the Heading Text.',
-                        'description'   => 'Enter the Heading Text.',
-                        'preview'     => array(
+    'general' => array( // Tab
+        'title'    => __('General', 'fl-builder'), // Tab title
+        'sections' => array( // Tab Sections
+            'general' => array( // Section
+                'title'  => __('Section Title', 'fl-builder'), // Section Title
+                'fields' => array( // Section Fields
+                    'heading'                     => array(
+                        'type'         => 'text',
+                        'label'        => __('Heading Text', 'fl-builder'),
+                        'default'      => '',
+                        'class'        => 'my-css-class',
+                        'help'         => 'Enter the Heading Text.',
+                        'description'  => 'Enter the Heading Text.',
+                        'preview'      => array(
 							'type'     => 'text',
 							'selector' => '.fl-heading-text',
 						),
-						'connections' => array( 'string' ),
+						'connections'  => array( 'string' ),
                     ),
-                    'tag'     => array(
+                    'tag'                         => array(
 						'type'    => 'select',
 						'label'   => __( 'Heading Tag', 'fl-builder' ),
 						'default' => 'h2',
@@ -165,7 +170,7 @@ FLBuilder::register_module('FLRestaurantsMapModule', array(
 							'h6' => 'h6',
 						),
 					),
-                    'google_maps_api_key_field'     => array(
+                    'google_maps_api_key_field'   => array(
                         'type'          => 'text',
                         'label'         => __('Google Maps API Key', 'fl-builder'),
                         'default'       => '',
@@ -173,7 +178,7 @@ FLBuilder::register_module('FLRestaurantsMapModule', array(
                         'help'          => 'Enter the Google Maps API Key.',
                         'description'   => 'Enter the Google Maps API Key.',
                     ),
-                    'number_of_map_markers_field'     => array(
+                    'number_of_map_markers_field' => array(
                         'type'          => 'unit',
                         'label'         => __('Number of Map Markers', 'fl-builder'),
                         'default'       => '4',
@@ -184,8 +189,8 @@ FLBuilder::register_module('FLRestaurantsMapModule', array(
             )
         )
     ),
-    'style'   => array(
-        'title'    => __( 'Style', 'fl-builder' ),
+    'style'  => array(
+        'title' => __( 'Style', 'fl-builder' ),
         'sections' => array(
             'colors' => array(
                 'title'  => '',
