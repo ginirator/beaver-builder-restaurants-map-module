@@ -10,7 +10,6 @@ Licence: GPL2
 */
 
 /**
- * This WordPress plugin has been written, especially for FlowPress, as I'm applying for a WordPress Developer job position.
  * This WordPress plugin is a Restaurants Map module that will be included in the Beaver Builder plugin.
  * Copyright 2022 Ⓒ Valeriu Dodon. All rights reserved.
 */
